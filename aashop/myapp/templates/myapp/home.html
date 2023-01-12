@@ -5,10 +5,12 @@
 	{% for i in item %}
 	<ul class="card-item">
 		<li>{{ i.name }}</li>
-			<p>Описание товара: {{ i.text }}</p>
 			<p>Price: {{ i.price }}$</p>
-			<input type="button" name="buy" value="Купить" class="buy-button">
-		<hr>
+			<form action="{% url 'item_detail' pk=i.pk %}" method="get">
+				<input type="submit" name="item-detail" value="Посмотреть товар" class="buy-button">
+				<input type="button" name="buy" value="Купить" class="buy-button">
+			</form>
+			<hr>
 	</ul>
 
 	{% endfor %}
