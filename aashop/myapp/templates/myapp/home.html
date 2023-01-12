@@ -6,7 +6,7 @@
 	<ul class="card-item">
 		<li>{{ i.name }}</li>
 			<p>Price: {{ i.price }}$</p>
-			<form action="{% url 'item_detail' pk=i.pk %}" method="get">
+			<form action="{{ i.get_absolute_url }}" method="get">
 				<input type="submit" name="item-detail" value="Посмотреть товар" class="buy-button">
 				<input type="button" name="buy" value="Купить" class="buy-button">
 			</form>
