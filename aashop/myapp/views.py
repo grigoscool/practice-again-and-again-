@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
+from .models import *
+
+menu = ['главная', 'о сайте']
 
 
 def show_home(request):
-    return HttpResponse('hello my friend')
-
-def show_cat(request, slug):
-    if slug == 'ff':
-        return redirect('home')
-    return HttpResponse(f"{slug} you now")
+    item = Item.objects.all()
+    return render(request, 'myapp/home.html', {'item': item, 'menu': menu})
 
 
+
+def about(request):
+    return render(request, 'myapp/about.html', {'menu': menu})

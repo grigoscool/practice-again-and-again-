@@ -117,11 +117,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = Path(BASE_DIR / 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = Path(BASE_DIR / 'static')
-MEDIA_URL = 'static/'
+MEDIA_ROOT = Path(BASE_DIR / 'media')
+MEDIA_URL = 'media/'
