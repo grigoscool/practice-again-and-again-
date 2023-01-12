@@ -1,11 +1,13 @@
 {% extends 'myapp/base.html' %}
+{% load static %}
 {% block content %}
 <div class="item">
 	{% for i in item %}
-	<ul>
+	<ul class="card-item">
 		<li>{{ i.name }}</li>
-			<p>Описание товара: </Ogbcf>{{ i.text }}</p>
+			<p>Описание товара: {{ i.text }}</p>
 			<p>Price: {{ i.price }}$</p>
+			<input type="button" name="buy" value="Купить" class="buy-button">
 		<hr>
 	</ul>
 

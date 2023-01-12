@@ -1,0 +1,15 @@
+.menu {
+    text-align: center;
+    color: red;
+    font-size: 150%;
+}
+.card-item {
+    text-align: left;
+
+}
+.buy-button {
+    background-color: blue;
+}
+.contact {
+    font-size: 250%;
+}

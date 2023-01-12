@@ -1,13 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="{% static 'myapp/css/style.css' %}" type="text/css">
 		<title>shop</title>
 	</head>
 	<body>
 		<div class="menu">
+			<a href="{% url 'home' %}">Главная</a>
 			{% for m in menu %}
-				{{ m }}
+				<a href="{% url m.url %}">{{ m.title }}</a>
 			{% endfor %}
 		</div>
 
