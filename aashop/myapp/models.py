@@ -7,3 +7,6 @@ class Item(models.Model):
     photo = models.ImageField(null=True)
     is_piblished = models.BooleanField(default=True)
     time_creation = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

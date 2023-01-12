@@ -1,0 +1,15 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<div class="item">
+	{% for i in item %}
+	<ul>
+		<li>{{ i.name }}</li>
+			<p>Описание товара: </Ogbcf>{{ i.text }}</p>
+			<p>Price: {{ i.price }}$</p>
+		<hr>
+	</ul>
+
+	{% endfor %}
+</div>
+
+{% endblock content %}
