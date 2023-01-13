@@ -7,9 +7,17 @@ class Item(models.Model):
     photo = models.ImageField(null=True)
     is_piblished = models.BooleanField(default=True)
     time_creation = models.DateField(auto_now_add=True)
+    cat = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('item_detail', kwargs={'pk': self.pk})
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=255, verbose_name='категория')
+
+    def __str__(self):
+        return self.title

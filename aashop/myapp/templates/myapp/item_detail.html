@@ -2,7 +2,8 @@
 {% load static %}
 {% block content %}
 <div class="item-detail">
-  <p>{{ item.name }}</p>
+  <h1>{{ item.name }}</h1>
+  <p>{{ item.cat.title }}</p>
 </div>
 
 {% endblock content %}

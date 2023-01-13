@@ -1,14 +1,21 @@
 {% extends 'myapp/base.html' %}
 {% load static %}
 {% block content %}
+<div class="category">
+	{% for cat in categories %}
+		<h1>
+			<a href="#">{{ cat.title }}</a>
+		</h1>
+	{% endfor %}
+</div>
 <div class="item">
 	{% for i in item %}
 	<ul class="card-item">
 		<li>{{ i.name }}</li>
 			<p>Price: {{ i.price }}$</p>
-			<form action="{{ i.get_absolute_url }}" method="get">
+			<form action="{{ i.get_absolute_url }}" method="get" target="_blank">
 				<input type="submit" name="item-detail" value="Посмотреть товар" class="buy-button">
-				<input type="button" name="buy" value="Купить" class="buy-button">
+				<input type="button" name="buy" value="Купить" class="buy-button" >
 			</form>
 			<hr>
 	</ul>

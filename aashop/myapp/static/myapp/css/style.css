@@ -13,3 +13,11 @@
 .contact {
     font-size: 250%;
 }
+div.category {
+    float: left;
+    width: 200px;
+}
+div.item {
+    float: left;
+    width: 1700;
+}

@@ -12,7 +12,13 @@ menu = [
 
 def show_home(request):
     item = Item.objects.all()
-    return render(request, 'myapp/home.html', {'item': item, 'menu': menu})
+    cat = Category.objects.all()
+    context = {
+        'item': item,
+        'menu': menu,
+        'categories': cat,
+    }
+    return render(request, 'myapp/home.html', context)
 
 
 def about(request):
