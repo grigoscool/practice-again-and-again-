@@ -50,6 +50,7 @@ def show_category_detail(request, pk):
     items = Item.objects.filter(cat_id=pk)
     context = {
         'items': items,
+        'menu': menu,
     }
     if not items:
         raise Http404
