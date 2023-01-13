@@ -44,3 +44,13 @@ def show_item_detail(request, pk):
         'menu': menu,
     }
     return render(request, 'myapp/item_detail.html', context)
+
+
+def show_category_detail(request, pk):
+    items = Item.objects.filter(cat_id=pk)
+    context = {
+        'items': items,
+    }
+    if not items:
+        raise Http404
+    return render(request, 'myapp/category_detail.html', context)
