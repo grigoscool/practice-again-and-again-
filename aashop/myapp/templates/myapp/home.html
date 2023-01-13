@@ -4,7 +4,7 @@
 <div class="category">
 	{% for cat in categories %}
 		<h1>
-			<a href="#">{{ cat.title }}</a>
+			<a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
 		</h1>
 	{% endfor %}
 </div>

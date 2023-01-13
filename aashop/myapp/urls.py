@@ -8,6 +8,7 @@ urlpatterns = [
     path('contact', show_contact, name='contact'),
     path('login', login, name='login'),
     path('item/<int:pk>/', show_item_detail, name='item_detail'),
+    path('category/<int:pk>/', show_category_detail, name='category_detail'),
 
 ]
 

@@ -21,3 +21,8 @@ div.item {
     float: left;
     width: 1700;
 }
+.item-detail {
+    text-align: left;
+    float: left;
+    margin-left: 10%;
+}
