@@ -37,8 +37,8 @@ def login(request):
     return render(request, 'myapp/login.html', {'menu': menu})
 
 
-def show_item_detail(request, pk):
-    item = get_object_or_404(Item, pk=pk)
+def show_item_detail(request, slug):
+    item = get_object_or_404(Item, slug=slug)
     context = {
         'item': item,
         'menu': menu,
