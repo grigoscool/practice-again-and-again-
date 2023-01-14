@@ -2,4 +2,10 @@
 {% load static %}
 {% block content %}
 	<h1>add item</h1>
+	<form action="" method="post">
+		{% for i in cur %}
+			<label for="{{ i.2 }}">{{ i.3 }}</label>
+			<input  type="radio"  value="{{ i.1 }}" name="{{ i.4 }}" id="{{ i.2 }}">
+		{% endfor %}
+	</form>
 {% endblock content %}

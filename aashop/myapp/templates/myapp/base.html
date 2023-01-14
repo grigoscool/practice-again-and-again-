@@ -1,4 +1,5 @@
 {% load static %}
+{% load categories_tags %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -7,6 +8,14 @@
 		<title>shop</title>
 	</head>
 	<body>
+		<div class="category">
+			{% get_cats as categories %}
+			{% for cat in categories %}
+				<h1>
+					<a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
+				</h1>
+			{% endfor %}
+		</div>
 		<div class="menu">
 			<a href="{% url 'home' %}">Главная</a>
 			{% for m in menu %}

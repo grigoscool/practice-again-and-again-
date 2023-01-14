@@ -12,11 +12,9 @@ menu = [
 
 def show_home(request):
     item = Item.objects.all()
-    cat = Category.objects.all()
     context = {
         'item': item,
         'menu': menu,
-        'categories': cat,
     }
     return render(request, 'myapp/home.html', context)
 
@@ -30,7 +28,12 @@ def show_contact(request):
 
 
 def add_item(request):
-    return render(request, 'myapp/add_item.html', {'menu': menu})
+    cur = [
+        {1: 1, 2: 2, 3: 3, 4: 4},
+        {1: 'one', 2: 'two', 3: 'three', 4: 'four'},
+        {1: 55, 2: 44, 3: 555, 4: 34}
+    ]
+    return render(request, 'myapp/add_item.html', {'menu': menu, 'cur': cur})
 
 
 def login(request):

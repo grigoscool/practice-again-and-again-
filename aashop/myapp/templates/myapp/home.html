@@ -1,13 +1,6 @@
 {% extends 'myapp/base.html' %}
 {% load static %}
 {% block content %}
-<div class="category">
-	{% for cat in categories %}
-		<h1>
-			<a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
-		</h1>
-	{% endfor %}
-</div>
 <div class="item">
 	{% for i in item %}
 	<ul class="card-item">
