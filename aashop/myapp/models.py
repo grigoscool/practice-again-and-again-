@@ -9,17 +9,20 @@ class Item(models.Model):
     photo = models.ImageField(upload_to='photo', null=True)
     is_piblished = models.BooleanField(default=True)
     time_creation = models.DateField(auto_now_add=True)
+    slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
     cat = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('item_detail', kwargs={'pk': self.pk})
+        return reverse('item_detail', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):
     title = models.CharField(max_length=255, verbose_name='категория')
+    slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
+
 
     class Meta:
         verbose_name_plural = 'Categories'
