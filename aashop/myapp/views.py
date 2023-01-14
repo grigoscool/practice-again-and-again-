@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from .models import *
 
@@ -38,7 +38,7 @@ def login(request):
 
 
 def show_item_detail(request, pk):
-    item = Item.objects.get(pk=pk)
+    item = get_object_or_404(Item, pk=pk)
     context = {
         'item': item,
         'menu': menu,
