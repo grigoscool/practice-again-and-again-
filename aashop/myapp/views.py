@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from .models import *
+from .forms import ItemForm
 
 menu = [
     {'title': 'о сайте', 'url': 'about'},
@@ -28,12 +29,8 @@ def show_contact(request):
 
 
 def add_item(request):
-    cur = [
-        {1: 1, 2: 2, 3: 3, 4: 4},
-        {1: 'one', 2: 'two', 3: 'three', 4: 'four'},
-        {1: 55, 2: 44, 3: 555, 4: 34}
-    ]
-    return render(request, 'myapp/add_item.html', {'menu': menu, 'cur': cur})
+    form = ItemForm()
+    return render(request, 'myapp/add_item.html', {'menu': menu, 'form': form})
 
 
 def login(request):

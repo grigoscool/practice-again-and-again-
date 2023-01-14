@@ -1,11 +1,13 @@
 {% extends 'myapp/base.html' %}
 {% load static %}
 {% block content %}
+<div class="add-item">
 	<h1>add item</h1>
 	<form action="" method="post">
-		{% for i in cur %}
-			<label for="{{ i.2 }}">{{ i.3 }}</label>
-			<input  type="radio"  value="{{ i.1 }}" name="{{ i.4 }}" id="{{ i.2 }}">
-		{% endfor %}
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Добавить</button>
 	</form>
+</div>
+
 {% endblock content %}
