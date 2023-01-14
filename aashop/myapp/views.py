@@ -30,13 +30,13 @@ def show_contact(request):
 
 def add_item(request):
     if request.method == 'POST':
-        form = ItemForm(data=request.POST)
+        form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
-        return render(request, 'myapp/add_item.html', {'menu': menu, 'form': form})
+            form.save()
+            return redirect('home')
     else:
         form = ItemForm()
-        return render(request, 'myapp/add_item.html', {'menu': menu, 'form': form})
+    return render(request, 'myapp/add_item.html', {'menu': menu, 'form': form})
 
 def login(request):
     return render(request, 'myapp/login.html', {'menu': menu})

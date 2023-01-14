@@ -1,10 +1,24 @@
 from django import forms
-from .models import *
+from django.core.exceptions import ValidationError
+from django.forms import TextInput
 
-class ItemForm(forms.Form):
-    name = forms.CharField(widget=forms.TextInput(attrs={'size': 50}))
-    text = forms.CharField(widget=forms.Textarea)
-    price = forms.IntegerField(min_value=0)
-    is_piblished = forms.BooleanField()
-    slug = forms.SlugField()
-    cat = forms.ModelChoiceField(queryset=Category.objects, widget=forms.RadioSelect)
+from .models import *
+from django.core import validators
+
+
+class ItemForm(forms.ModelForm):
+    # для переопредения атрибутов
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['cat'].empty_label = 'no cat'
+
+    # наследование от модели всех полей
+    class Meta:
+        model = Item
+        fields = ['name', 'slug', 'price', 'is_piblished', 'text', 'photo', 'cat']
+        # переопределения виджетов от модели к форме
+        widgets = {
+            'name': TextInput(attrs={'size': 50})
+        }
+
+
