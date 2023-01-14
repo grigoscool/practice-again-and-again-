@@ -24,6 +24,8 @@ class Category(models.Model):
     slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
 
 
+
+
     class Meta:
         verbose_name_plural = 'Categories'
 
