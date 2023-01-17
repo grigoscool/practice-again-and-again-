@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
+from django.views.generic import ListView
+
 from .models import *
 from .forms import ItemForm
 
@@ -11,13 +13,25 @@ menu = [
 ]
 
 
-def show_home(request):
-    item = Item.objects.all()
-    context = {
-        'item': item,
-        'menu': menu,
-    }
-    return render(request, 'myapp/home.html', context)
+class Home(ListView):
+    model = Item
+    # меняем стандартную директорию на уже имеющуюся
+    template_name = 'myapp/home.html'
+    # Класс вьюхи отправляет object_list, мы же меняемна items
+    context_object_name = 'items'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(Home, self).get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
+
+# def show_home(request):
+#     item = Item.objects.all()
+#     context = {
+#         'item': item,
+#         'menu': menu,
+#     }
+#     return render(request, 'myapp/home.html', context)
 
 
 def about(request):
@@ -37,6 +51,7 @@ def add_item(request):
     else:
         form = ItemForm()
     return render(request, 'myapp/add_item.html', {'menu': menu, 'form': form})
+
 
 def login(request):
     return render(request, 'myapp/login.html', {'menu': menu})
