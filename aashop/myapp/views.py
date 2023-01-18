@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 
 from .models import *
 from .forms import ItemForm
@@ -63,13 +63,11 @@ def login(request):
     return render(request, 'myapp/login.html', {'menu': menu})
 
 
-def show_item_detail(request, slug):
-    item = get_object_or_404(Item, slug=slug)
-    context = {
-        'item': item,
-        'menu': menu,
-    }
-    return render(request, 'myapp/item_detail.html', context)
+class ItemDetail(DetailView):
+    model = Item
+    context_object_name = 'item'
+    template_name = 'myapp/item_detail.html'
+
 
 
 class CategoryDetail(ListView):
