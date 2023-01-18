@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView, DetailView, CreateView
 
 from .models import *
 from .forms import ItemForm
@@ -34,36 +34,40 @@ class Home(ListView):
         return Item.objects.filter(is_piblished=True)
 
 
-def about(request):
-    return render(request, 'myapp/about.html', {'menu': menu})
+class About(TemplateView):
+    template_name = 'myapp/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(About, self).get_context_data()
+        context['menu'] = menu
+        context['title'] = 'about'
+        return context
 
 
 def show_contact(request):
     return render(request, 'myapp/contact.html', {'menu': menu})
 
 
-def add_item(request):
-    if request.method == 'POST':
-        form = ItemForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = ItemForm()
-    return render(request, 'myapp/add_item.html', {'menu': menu, 'form': form})
+class AddItem(CreateView):
+    form_class = ItemForm
+    template_name = 'myapp/add_item.html'
+    context_object_name = 'form'
+
+    def get_context_data(self, **kwargs):
+        context = super(AddItem, self).get_context_data()
+        context['menu'] = menu
+        context['title'] = 'ADD item'
+        return context
 
 
 def login(request):
     return render(request, 'myapp/login.html', {'menu': menu})
 
 
-def show_item_detail(request, slug):
-    item = get_object_or_404(Item, slug=slug)
-    context = {
-        'item': item,
-        'menu': menu,
-    }
-    return render(request, 'myapp/item_detail.html', context)
+class ItemDetail(DetailView):
+    model = Item
+    context_object_name = 'item'
+    template_name = 'myapp/item_detail.html'
 
 
 class CategoryDetail(ListView):
@@ -82,6 +86,3 @@ class CategoryDetail(ListView):
         context['title'] = 'Category - ' + str(context['items'][0].cat)
         context['menu'] = menu
         return context
-
-
-
