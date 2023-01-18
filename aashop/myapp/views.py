@@ -66,12 +66,22 @@ def show_item_detail(request, slug):
     return render(request, 'myapp/item_detail.html', context)
 
 
-def show_category_detail(request, pk):
-    items = Item.objects.filter(cat_id=pk)
-    context = {
-        'items': items,
-        'menu': menu,
-    }
-    if not items:
-        raise Http404
-    return render(request, 'myapp/category_detail.html', context)
+class CategoryDetail(ListView):
+    model = Category
+    template_name = 'myapp/category_detail.html'
+    context_object_name = 'items'
+    # атрибут из датамиксин
+    allow_empty = False
+
+    def get_queryset(self):
+        # через кваргс можем получить значение из словоря ЗАПРОСА урла
+        return Item.objects.filter(cat_id=self.kwargs['pk'], is_piblished=True)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Category - ' + str(context['items'][0].cat)
+        context['menu'] = menu
+        return context
+
+
+
