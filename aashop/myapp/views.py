@@ -7,7 +7,7 @@ from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
-from .forms import ItemForm
+from .forms import ItemForm, RegistrationForm
 from .utils import DataMixin
 
 
@@ -90,7 +90,7 @@ class CategoryDetail(DataMixin, ListView):
 
 
 class RegisterUser(DataMixin, CreateView):
-    form_class = UserCreationForm
+    form_class = RegistrationForm
     template_name = 'myapp/register.html'
     context_object_name = 'form'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('myapp:login')

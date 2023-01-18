@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import TextInput
 
@@ -21,4 +23,8 @@ class ItemForm(forms.ModelForm):
             'name': TextInput(attrs={'size': 50})
         }
 
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['first_name']
 

@@ -1,13 +1,14 @@
 {% load static %}
 {% block content %}
 <div class="register">
-	<form action="" method="post" >
+	<form method="post" >
 		{% csrf_token %}
 		{% for f in form %}
 			<div class="register-form">
 				<div class="register-form-field">
 					<label for="{{ f.id_for_label }}">{{ f.label }}</label>
 					{{ f }}
+					{{ f.errors }}
 				</div>
 			</div>
 
