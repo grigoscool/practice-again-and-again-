@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
+from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -28,6 +30,7 @@ class Home(DataMixin, ListView):
     def get_queryset(self):
         return Item.objects.filter(is_piblished=True)
 
+
 @login_required(login_url='/login/')
 def about(request):
     return render(request, 'myapp/about.html')
@@ -40,6 +43,7 @@ class Contacts(DataMixin, TemplateView):
         context = super(Contacts, self).get_context_data()
         mix_cont = self.get_user_context(title='Contact')
         return context | mix_cont
+
 
 class AddItem(LoginRequiredMixin, DataMixin, CreateView):
     form_class = ItemForm
@@ -67,6 +71,7 @@ class ItemDetail(DataMixin, DetailView):
         mix_cont = self.get_user_context(title=Item.objects.get(slug=self.kwargs['slug']))
         return context | mix_cont
 
+
 class CategoryDetail(DataMixin, ListView):
     model = Category
     template_name = 'myapp/category_detail.html'
@@ -83,3 +88,9 @@ class CategoryDetail(DataMixin, ListView):
         mix_cont = self.get_user_context(title='Category - ' + str(context['items'][0].cat))
         return context | mix_cont
 
+
+class RegisterUser(DataMixin, CreateView):
+    form_class = UserCreationForm
+    template_name = 'myapp/register.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('login')

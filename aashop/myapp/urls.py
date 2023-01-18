@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('item/<slug:slug>/', ItemDetail.as_view(), name='item_detail'),
     path('category/<int:pk>/', CategoryDetail.as_view(), name='category_detail'),
+    path('register/', RegisterUser.as_view(), name='register'),
 
 ]
 

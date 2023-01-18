@@ -5,7 +5,8 @@ menu = [
     {'title': 'о сайте', 'url': 'myapp:about'},
     {'title': 'добавть товар', 'url': 'myapp:add_item'},
     {'title': 'обратная связь', 'url': 'myapp:contact'},
-    {'title': 'Войти', 'url': 'myapp:login'}
+    {'title': 'Войти', 'url': 'myapp:login'},
+    {'title': 'регистрация', 'url': 'myapp:register'},
 ]
 
 
