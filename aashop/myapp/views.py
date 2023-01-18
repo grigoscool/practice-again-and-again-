@@ -19,6 +19,7 @@ class Home(ListView):
     template_name = 'myapp/home.html'
     # Класс вьюхи отправляет object_list, мы же меняемна items
     context_object_name = 'items'
+    extra_context = {'title': 'Home'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
