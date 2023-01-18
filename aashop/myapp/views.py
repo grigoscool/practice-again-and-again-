@@ -19,19 +19,19 @@ class Home(ListView):
     template_name = 'myapp/home.html'
     # Класс вьюхи отправляет object_list, мы же меняемна items
     context_object_name = 'items'
+    # так можно передать статические данные без переменных
+    extra_context = {'title': 'Home'}
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
+        # добавляем данные во вьюху
         context['menu'] = menu
         return context
 
-# def show_home(request):
-#     item = Item.objects.all()
-#     context = {
-#         'item': item,
-#         'menu': menu,
-#     }
-#     return render(request, 'myapp/home.html', context)
+    # создаем запросдля отображения в шаблоне
+    def get_queryset(self):
+        return Item.objects.filter(is_piblished=True)
 
 
 def about(request):
