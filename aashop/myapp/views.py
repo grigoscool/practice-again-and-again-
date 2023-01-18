@@ -4,16 +4,10 @@ from django.views.generic import ListView, TemplateView, DetailView, CreateView
 
 from .models import *
 from .forms import ItemForm
-
-menu = [
-    {'title': 'о сайте', 'url': 'about'},
-    {'title': 'добавть товар', 'url': 'add_item'},
-    {'title': 'обратная связь', 'url': 'contact'},
-    {'title': 'Войти', 'url': 'login'}
-]
+from .utils import DataMixin
 
 
-class Home(ListView):
+class Home(DataMixin, ListView):
     model = Item
     # меняем стандартную директорию на уже имеющуюся
     template_name = 'myapp/home.html'
@@ -25,52 +19,57 @@ class Home(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        # добавляем данные во вьюху
-        context['menu'] = menu
-        return context
+        mix_cont = self.get_user_context(title='Home')
+        return context | mix_cont
 
     # создаем запросдля отображения в шаблоне
     def get_queryset(self):
         return Item.objects.filter(is_piblished=True)
 
 
-class About(TemplateView):
+class About(DataMixin, TemplateView):
     template_name = 'myapp/about.html'
 
     def get_context_data(self, **kwargs):
         context = super(About, self).get_context_data()
-        context['menu'] = menu
-        context['title'] = 'about'
-        return context
+        mix_cont = self.get_user_context(title='About')
+        return context | mix_cont
 
 
-def show_contact(request):
-    return render(request, 'myapp/contact.html', {'menu': menu})
+class Contacts(DataMixin, TemplateView):
+    template_name = 'myapp/contact.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(Contacts, self).get_context_data()
+        mix_cont = self.get_user_context(title='Contact')
+        return context | mix_cont
 
-class AddItem(CreateView):
+class AddItem(DataMixin, CreateView):
     form_class = ItemForm
     template_name = 'myapp/add_item.html'
     context_object_name = 'form'
 
     def get_context_data(self, **kwargs):
         context = super(AddItem, self).get_context_data()
-        context['menu'] = menu
-        context['title'] = 'ADD item'
-        return context
+        mix_cont = self.get_user_context(title='ADD item')
+        return context | mix_cont
 
 
 def login(request):
     return render(request, 'myapp/login.html', {'menu': menu})
 
 
-class ItemDetail(DetailView):
+class ItemDetail(DataMixin, DetailView):
     model = Item
     context_object_name = 'item'
     template_name = 'myapp/item_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(ItemDetail, self).get_context_data()
+        mix_cont = self.get_user_context(title=Item.objects.get(slug=self.kwargs['slug']))
+        return context | mix_cont
 
-class CategoryDetail(ListView):
+class CategoryDetail(DataMixin, ListView):
     model = Category
     template_name = 'myapp/category_detail.html'
     context_object_name = 'items'
@@ -83,6 +82,6 @@ class CategoryDetail(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Category - ' + str(context['items'][0].cat)
-        context['menu'] = menu
-        return context
+        mix_cont = self.get_user_context(title='Category - ' + str(context['items'][0].cat))
+        return context | mix_cont
+
