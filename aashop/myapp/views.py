@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 from .forms import ItemForm
@@ -26,14 +28,9 @@ class Home(DataMixin, ListView):
     def get_queryset(self):
         return Item.objects.filter(is_piblished=True)
 
-
-class About(DataMixin, TemplateView):
-    template_name = 'myapp/about.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(About, self).get_context_data()
-        mix_cont = self.get_user_context(title='About')
-        return context | mix_cont
+@login_required(login_url='/login/')
+def about(request):
+    return render(request, 'myapp/about.html')
 
 
 class Contacts(DataMixin, TemplateView):
@@ -44,10 +41,11 @@ class Contacts(DataMixin, TemplateView):
         mix_cont = self.get_user_context(title='Contact')
         return context | mix_cont
 
-class AddItem(DataMixin, CreateView):
+class AddItem(LoginRequiredMixin, DataMixin, CreateView):
     form_class = ItemForm
     template_name = 'myapp/add_item.html'
     context_object_name = 'form'
+    login_url = '/login/'
 
     def get_context_data(self, **kwargs):
         context = super(AddItem, self).get_context_data()
@@ -56,7 +54,7 @@ class AddItem(DataMixin, CreateView):
 
 
 def login(request):
-    return render(request, 'myapp/login.html', {'menu': menu})
+    return render(request, 'myapp/login.html')
 
 
 class ItemDetail(DataMixin, DetailView):
