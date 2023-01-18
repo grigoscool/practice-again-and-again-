@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
@@ -94,3 +95,8 @@ class RegisterUser(DataMixin, CreateView):
     template_name = 'myapp/register.html'
     context_object_name = 'form'
     success_url = reverse_lazy('myapp:login')
+
+
+class LoginUser(LoginView):
+    template_name = 'myapp/login.html'
+    success_url = reverse_lazy('myapp:home')
