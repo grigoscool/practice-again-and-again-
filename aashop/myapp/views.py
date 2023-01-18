@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from .models import *
 from .forms import ItemForm
@@ -34,8 +34,14 @@ class Home(ListView):
         return Item.objects.filter(is_piblished=True)
 
 
-def about(request):
-    return render(request, 'myapp/about.html', {'menu': menu})
+class About(TemplateView):
+    template_name = 'myapp/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(About, self).get_context_data()
+        context['menu'] = menu
+        return context
+
 
 
 def show_contact(request):
