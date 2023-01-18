@@ -19,7 +19,7 @@
 			{% endfor %}
 		</div>
 		<div class="menu">
-			<a href="{% url 'home' %}">Главная</a>
+			<a href="{% url 'myapp:home' %}">Главная</a>
 			{% for m in menu %}
 				<a href="{% url m.url %}">{{ m.title }}</a>
 			{% endfor %}

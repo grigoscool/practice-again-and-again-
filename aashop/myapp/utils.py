@@ -2,10 +2,10 @@ from .models import Category
 
 
 menu = [
-    {'title': 'о сайте', 'url': 'about'},
-    {'title': 'добавть товар', 'url': 'add_item'},
-    {'title': 'обратная связь', 'url': 'contact'},
-    {'title': 'Войти', 'url': 'login'}
+    {'title': 'о сайте', 'url': 'myapp:about'},
+    {'title': 'добавть товар', 'url': 'myapp:add_item'},
+    {'title': 'обратная связь', 'url': 'myapp:contact'},
+    {'title': 'Войти', 'url': 'myapp:login'}
 ]
 
 
