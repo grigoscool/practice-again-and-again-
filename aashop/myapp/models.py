@@ -4,14 +4,14 @@ from django.urls import reverse
 
 
 # валидация кастомная
-def my_valid_on_7(value):
-    if "7" in value:
-        raise ValidationError('дб 7')
-    raise value
-
+# def my_valid_on_7(value):
+#     if "7" in value:
+#         raise ValidationError('дб 7')
+#     raise value
+#
 
 class Item(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название', validators=[my_valid_on_7])
+    name = models.CharField(max_length=255, verbose_name='Название')
     text = models.TextField(blank=True)
     price = models.PositiveIntegerField(help_text='Цена товара')
     photo = models.ImageField(upload_to='photo', null=True)
@@ -19,6 +19,9 @@ class Item(models.Model):
     time_creation = models.DateField(auto_now_add=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
     cat = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        ordering = ['cat']
 
     def __str__(self):
         return self.name
