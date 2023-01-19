@@ -1,10 +1,8 @@
-body {
-    background: rgb(255, 248, 220);
-}
+.navbar {
 
+}
 .menu {
     color: red;
-    font-size: 200%;
     text-align: left;
     display: inline-block;
 }
@@ -26,7 +24,7 @@ body {
     font-size: 100%;
 }
 .item {
-    margin: 200px 0px 0px 0px;
+    margin: 70px 0px 0px 0px;
 }
 .card-item {
     text-align: left;
@@ -40,16 +38,17 @@ body {
 }
 div.category {
     float: left;
-    width: 200px;
+    width: 220px;
     font-size: 40px;
     color: red;
     border: 1px solid black;
-    margin: 200px 10px 10px 25px;
+    margin: 70px 10px 10px 25px;
     border-radius: 15px;
     box-shadow: 0px 0px 10px black;
     padding: 10px;
     text-align: center;
     background-color:#B0E0E6;
+
 
 }
 div.item {
@@ -75,4 +74,8 @@ div.login {
 }
 .text {
     text-indent: 25px;
+}
+
+body {
+    background-color: rgb(255, 248, 220);
 }
