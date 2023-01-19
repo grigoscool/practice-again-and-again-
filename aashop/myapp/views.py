@@ -66,7 +66,7 @@ class ItemDetail(DataMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ItemDetail, self).get_context_data()
-        mix_cont = self.get_user_context(title=Item.objects.get(slug=self.kwargs['slug']))
+        mix_cont = self.get_user_context(title=Item.objects.filter(slug=self.kwargs['slug']))
         return context | mix_cont
 
 

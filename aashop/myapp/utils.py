@@ -12,7 +12,7 @@ menu = [
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
-        cat = Category.objects.all()
+        cat = Category.objects.all().values('title', 'slug')
 
         # если пользователь не зареган, удаляем из меню добавление итема
         user_menu = menu.copy()
