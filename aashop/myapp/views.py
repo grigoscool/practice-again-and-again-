@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
@@ -97,6 +97,15 @@ class RegisterUser(DataMixin, CreateView):
     success_url = reverse_lazy('myapp:login')
 
 
-class LoginUser(LoginView):
+
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthenticationForm
     template_name = 'myapp/login.html'
-    success_url = reverse_lazy('myapp:home')
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        mix_cont = self.get_user_context(title='авторизация')
+        return context | mix_cont
+def logoutview(request):
+    return redirect('myapp/home.html')
