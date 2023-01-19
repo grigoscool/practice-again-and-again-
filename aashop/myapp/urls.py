@@ -11,9 +11,7 @@ urlpatterns = [
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
-    path('item/<slug:slug>/', ItemDetail.as_view(), name='item_detail'),
+    path('item/<slug:slug>/', cache_page(60 * 1)(ItemDetail.as_view()), name='item_detail'),
     path('category/<int:pk>/', CategoryDetail.as_view(), name='category_detail'),
 
-
 ]
-

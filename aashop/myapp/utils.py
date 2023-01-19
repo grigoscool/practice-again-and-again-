@@ -1,3 +1,5 @@
+from django.core.cache import cache
+
 from .models import Category
 
 
@@ -12,7 +14,11 @@ menu = [
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
-        cat = Category.objects.all().values('title', 'slug')
+        # кэшируем запрос
+        cat = cache.get('cats')
+        if not cat:
+            cat = Category.objects.all()
+            cache.set('cat', cat, 60)
 
         # если пользователь не зареган, удаляем из меню добавление итема
         user_menu = menu.copy()

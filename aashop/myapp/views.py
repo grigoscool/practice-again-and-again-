@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -33,6 +34,7 @@ class Home(DataMixin, ListView):
         return Item.objects.filter(is_piblished=True)
 
 
+@cache_page(60 * 1)
 @login_required(login_url='/login/')
 def about(request):
     return render(request, 'myapp/about.html')
@@ -66,7 +68,7 @@ class ItemDetail(DataMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ItemDetail, self).get_context_data()
-        mix_cont = self.get_user_context(title=Item.objects.filter(slug=self.kwargs['slug']))
+        mix_cont = self.get_user_context(title=Item.objects.get(slug=self.kwargs['slug']))
         return context | mix_cont
 
 
