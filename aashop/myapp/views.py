@@ -1,4 +1,4 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -59,10 +59,6 @@ class AddItem(LoginRequiredMixin, DataMixin, CreateView):
         return context | mix_cont
 
 
-def login(request):
-    return render(request, 'myapp/login.html')
-
-
 class ItemDetail(DataMixin, DetailView):
     model = Item
     context_object_name = 'item'
@@ -97,24 +93,22 @@ class RegisterUser(DataMixin, CreateView):
     context_object_name = 'form'
     success_url = reverse_lazy('myapp:login')
 
-    def my_valid(self, form):
+    def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('myapp:home')
-
 
 
 class LoginUser(DataMixin, LoginView):
     form_class = AuthenticationForm
     template_name = 'myapp/login.html'
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         mix_cont = self.get_user_context(title='авторизация')
         return context | mix_cont
 
+
 def logout_user(request):
     logout(request)
     return redirect('myapp:login')
-
