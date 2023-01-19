@@ -5,4 +5,4 @@ register = template.Library()
 
 @register.simple_tag()
 def get_cats():
-    return Category.objects.all().values('title', 'slug')
+    return Category.objects.all()
