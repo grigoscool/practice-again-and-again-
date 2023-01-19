@@ -1,7 +1,32 @@
+body {
+    background: rgb(255, 248, 220);
+}
+
 .menu {
-    text-align: center;
     color: red;
-    font-size: 150%;
+    font-size: 200%;
+    text-align: left;
+    display: inline-block;
+}
+.main-menu {
+    margin-left:20px;
+    width: 75%;
+    float: left;
+    position: absolute;
+    left: 0px;
+}
+.log-menu {
+    position: absolute;
+    right: 0px;
+    margin: 0px 40px 0px 0px;
+    width: 25%;
+    text-align: right;
+}
+.user-name {
+    font-size: 100%;
+}
+.item {
+    margin: 200px 0px 0px 0px;
 }
 .card-item {
     text-align: left;
@@ -16,6 +41,16 @@
 div.category {
     float: left;
     width: 200px;
+    font-size: 40px;
+    color: red;
+    border: 1px solid black;
+    margin: 200px 10px 10px 25px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px black;
+    padding: 10px;
+    text-align: center;
+    background-color:#B0E0E6;
+
 }
 div.item {
     float: left;
@@ -24,7 +59,7 @@ div.item {
 .item-detail {
     text-align: left;
     float: left;
-    margin-left: 10%;
+    margin-left: 20%;
 }
 .add-item {
     float:left;
@@ -32,4 +67,12 @@ div.item {
 }
 .form-field {
     margin-top: 20px;
+}
+div.login {
+    text-align: right;
+    border: 1px solid black;
+    width:50%;
+}
+.text {
+    text-indent: 25px;
 }
