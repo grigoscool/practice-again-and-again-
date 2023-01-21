@@ -10,7 +10,7 @@
 			{{ title }}
 		</title>
 	</head>
-	<body style="background-color: rgb(255, 248, 220);">
+	<body>
 
 		<nav class="navbar navbar-expand-lg" style="background-color: rgba(128, 0, 128, 0.5); ">
 		  <div class="container-fluid">
@@ -31,15 +31,19 @@
 							<a class="user-link" href="{% url 'myapp:logout' %}">выйти</a> <div class="menu user-name">{{ user.username }}</div>
 						{% endif %}
 					</div>
+			    <form action="{% url 'myapp:search' %}" method="get" class="d-flex" role="search">
+            <input name="search" class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
 		    </div>
 		  </div>
 		</nav>
-			<div class="category line2">
+			<div class="category">
 				{% get_cats as categories %}
 				{% for cat in categories %}
-					<p>
-						<a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
-					</p>
+					<h3>
+						<a class="cat" href="{{ cat.get_absolute_url }}"  style="text-decoration: none; ">{{ cat.title }}</a>
+					</h3>
 				{% endfor %}
 			</div>
 		{% block content %}

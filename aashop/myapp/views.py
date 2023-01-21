@@ -114,3 +114,13 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('myapp:login')
+
+
+class SearchResult(DataMixin, ListView):
+    model = Item
+    template_name = 'myapp/search_result.html'
+    context_object_name = 'item'
+    def get_queryset(self):
+        search_item = self.request.GET.get('search')
+        item = Item.objects.filter(name__icontains=search_item)
+        return item
