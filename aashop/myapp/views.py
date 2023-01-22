@@ -1,19 +1,16 @@
-from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
-from .forms import ItemForm, RegistrationForm
+from .forms import ItemForm
 from .utils import DataMixin
 
-
+# TODO
+# cach Home and cach category
 class Home(DataMixin, ListView):
     model = Item
     # меняем стандартную директорию на уже имеющуюся
@@ -35,7 +32,6 @@ class Home(DataMixin, ListView):
 
 
 @cache_page(60 * 1)
-@login_required(login_url='/login/')
 def about(request):
     return render(request, 'myapp/about.html')
 
@@ -68,7 +64,7 @@ class ItemDetail(DataMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ItemDetail, self).get_context_data()
-        mix_cont = self.get_user_context(title=Item.objects.get(slug=self.kwargs['slug']))
+        mix_cont = self.get_user_context(title=self.kwargs['slug'])
         return context | mix_cont
 
 
@@ -81,7 +77,7 @@ class CategoryDetail(DataMixin, ListView):
 
     def get_queryset(self):
         # через кваргс можем получить значение из словоря ЗАПРОСА урла
-        return Item.objects.filter(cat_id=self.kwargs['pk'], is_piblished=True)
+        return Item.objects.filter(cat_id=self.kwargs['pk'], is_piblished=True).select_related('cat')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
