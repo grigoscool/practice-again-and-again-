@@ -44,8 +44,23 @@ p {
 }
 a, a:visited {
     color: inherit;
+    text-decoration: none;
 }
+a.card-link-detail {
 
+    padding: 0.29em 0.75em;
+    border: 1px;
+}
+a:hover {
+
+  cursor: pointer;
+}
+div.link-detail {
+    background: #00FFFF;
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px;
+}
 .log-menu {
     font-weight: 600;
     color: black;

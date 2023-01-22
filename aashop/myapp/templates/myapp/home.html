@@ -8,8 +8,11 @@
 			  <div class="card-body">
 			    <h5 class="card-title">{{ item.name }}e</h5>
 			    <h6 class="card-subtitle mb-2 text-muted">{{ item.cat }}</h6>
-			    <a href="{{ item.get_absolute_url }}" class="card-link">show detail</a>
-			    <a href="#" class="card-link">BUY</a>
+				  <div class="link-detail">
+					  <a href="{{ item.get_absolute_url }}" class="card-link-detail" style="text-decoration: none;">show detail</a>
+				  </div>
+
+			    <a href="#" class="card-link" style="text-decoration: none;">BUY</a>
 			  </div>
 			</div>
 		{% endif %}
