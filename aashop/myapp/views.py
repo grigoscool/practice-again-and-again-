@@ -89,37 +89,11 @@ class CategoryDetail(DataMixin, ListView):
         return context | mix_cont
 
 
-class RegisterUser(DataMixin, CreateView):
-    form_class = RegistrationForm
-    template_name = 'myapp/register.html'
-    context_object_name = 'form'
-    success_url = reverse_lazy('myapp:login')
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('myapp:home')
-
-
-class LoginUser(DataMixin, LoginView):
-    form_class = AuthenticationForm
-    template_name = 'myapp/login.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        mix_cont = self.get_user_context(title='авторизация')
-        return context | mix_cont
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('myapp:login')
-
-
 class SearchResult(DataMixin, ListView):
     model = Item
     template_name = 'myapp/search_result.html'
     context_object_name = 'item'
+
     def get_queryset(self):
         search_item = self.request.GET.get('search')
         item = Item.objects.filter(name__icontains=search_item)

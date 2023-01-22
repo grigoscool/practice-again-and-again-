@@ -26,9 +26,9 @@
 		      </div>
 		      <div class="menu log-menu">
 						{% if not request.user.is_authenticated %}
-							<a href="{% url 'myapp:login' %}">Log in</a> | <a href="{% url 'myapp:register' %}">регистрация</a>
+							<a href="{% url 'auth:login' %}">Log in</a> | <a href="{% url 'auth:register' %}">регистрация</a>
 						{% else %}
-							<a class="user-link" href="{% url 'myapp:logout' %}">выйти</a> <div class="menu user-name">{{ user.username }}</div>
+							<a class="user-link" href="{% url 'auth:logout' %}">выйти</a> <div class="menu user-name">{{ user.username }}</div>
 						{% endif %}
 					</div>
 			    <form action="{% url 'myapp:search' %}" method="get" class="d-flex" role="search">
