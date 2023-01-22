@@ -31,7 +31,7 @@ class Home(DataMixin, ListView):
 
     # создаем запросдля отображения в шаблоне
     def get_queryset(self):
-        return Item.objects.filter(is_piblished=True)
+        return Item.objects.filter(is_piblished=True).select_related('cat')
 
 
 @cache_page(60 * 1)
