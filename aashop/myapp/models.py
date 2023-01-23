@@ -10,6 +10,12 @@ from django.urls import reverse
 #     raise value
 #
 
+class ItemModelManager(models.Manager):
+    def is_published(self):
+        return super().get_queryset().filter(is_piblished=True)
+
+
+
 class Item(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
     text = models.TextField(blank=True)
@@ -20,6 +26,9 @@ class Item(models.Model):
     slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
     cat = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
 
+    # можно брать запрос не с миксина, а с менеджера
+    # objects_pub = ItemModelManager()
+
     class Meta:
         ordering = ['cat']
 
@@ -29,9 +38,7 @@ class Item(models.Model):
     def get_absolute_url(self):
         return reverse('myapp:item_detail', kwargs={'slug': self.slug})
 
-class ItemModelManager(models.Manager):
-    def is_published(self):
-        return Item.objects.filter(is_published)
+
 class Category(models.Model):
     title = models.CharField(max_length=255, verbose_name='категория')
     slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
