@@ -9,8 +9,7 @@ from .models import *
 from .forms import ItemForm
 from .utils import DataMixin
 
-# TODO
-# cach Home and cach category
+
 class Home(DataMixin, ListView):
     model = Item
     # меняем стандартную директорию на уже имеющуюся
@@ -55,7 +54,6 @@ class AddItem(LoginRequiredMixin, DataMixin, CreateView):
         context = super(AddItem, self).get_context_data()
         mix_cont = self.get_user_context(title='ADD item')
         return context | mix_cont
-
 
 class ItemDetail(DataMixin, DetailView):
     model = Item

@@ -39,7 +39,7 @@
 		  </div>
 		</nav>
 			<div class="category">
-<!--				{% get_cats as categories %}-->
+				{% get_cats as categories %}
 				{% for item in items %}
 					<h3>
 						<a class="cat" href="{{ item.cat.get_absolute_url }}"  style="text-decoration: none; ">{{ item.cat.title }}</a>
