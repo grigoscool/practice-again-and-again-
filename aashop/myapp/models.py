@@ -29,7 +29,9 @@ class Item(models.Model):
     def get_absolute_url(self):
         return reverse('myapp:item_detail', kwargs={'slug': self.slug})
 
-
+class ItemModelManager(models.Manager):
+    def is_published(self):
+        return Item.objects.filter(is_published)
 class Category(models.Model):
     title = models.CharField(max_length=255, verbose_name='категория')
     slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
