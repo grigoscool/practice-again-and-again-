@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
@@ -25,6 +26,7 @@ class Item(models.Model):
     time_creation = models.DateField(auto_now_add=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
     cat = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE)
 
     # можно брать запрос не с миксина, а с менеджера
     # objects_pub = ItemModelManager()

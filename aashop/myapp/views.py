@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from rest_framework import generics
 from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 from .forms import ItemForm
+from .serializer import ItemSerializer
 from .utils import DataMixin
 
 
@@ -92,3 +94,9 @@ class SearchResult(DataMixin, ListView):
         search_item = self.request.GET.get('search')
         item = Item.objects.filter(name__icontains=search_item)
         return item
+
+
+class ItemApiView(generics.ListAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+

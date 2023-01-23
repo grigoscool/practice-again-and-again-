@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'rest_framework',
     'myapp.apps.MyappConfig',
     'authentication.apps.AuthenticationConfig',
 ]
