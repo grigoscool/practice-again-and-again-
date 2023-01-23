@@ -1,8 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
 from myapp.views import *
 
 app_name = 'myapp'
+
+routers = routers.SimpleRouter()
+routers.register(r'item', ItemApiViewSet)
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -12,5 +16,5 @@ urlpatterns = [
     path('item/<slug:slug>/', cache_page(60 * 1)(ItemDetail.as_view()), name='item_detail'),
     path('category/<int:pk>/', CategoryDetail.as_view(), name='category_detail'),
     path('search/', SearchResult.as_view(), name='search'),
-    path('api/v1/item/', ItemApiView.as_view()),
+    path('item/', include(routers.urls)),
 ]

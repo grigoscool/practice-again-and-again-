@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -96,7 +96,7 @@ class SearchResult(DataMixin, ListView):
         return item
 
 
-class ItemApiView(generics.ListAPIView):
+class ItemApiViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
