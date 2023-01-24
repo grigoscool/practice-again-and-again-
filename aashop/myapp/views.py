@@ -5,6 +5,8 @@ from rest_framework import generics, viewsets
 from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import *
 from .forms import ItemForm
@@ -99,4 +101,5 @@ class SearchResult(DataMixin, ListView):
 class ItemApiViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    authentication_classes = (BasicAuthentication, SessionAuthentication, )

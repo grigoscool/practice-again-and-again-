@@ -7,7 +7,7 @@ app_name = 'myapp'
 
 routers = routers.SimpleRouter()
 routers.register(r'item', ItemApiViewSet)
-
+print(routers.urls)
 urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('about/', about, name='about'),
@@ -16,5 +16,5 @@ urlpatterns = [
     path('item/<slug:slug>/', cache_page(60 * 1)(ItemDetail.as_view()), name='item_detail'),
     path('category/<int:pk>/', CategoryDetail.as_view(), name='category_detail'),
     path('search/', SearchResult.as_view(), name='search'),
-    path('item/', include(routers.urls)),
+    path('api/v1/', include(routers.urls)),
 ]

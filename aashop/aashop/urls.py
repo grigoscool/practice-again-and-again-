@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myapp.urls', namespace='myapp')),
     path('auth/', include('authentication.urls', namespace='auth')),
-
+    path('api/v1/auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 if settings.DEBUG:
