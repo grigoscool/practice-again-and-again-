@@ -130,3 +130,19 @@ body {
 .card-body {
     border: 4px inset;
 }
+
+.paginator {
+    display: flex;
+    text-align: center;
+    position: absolute;
+    left: 800px;
+    bottom: 100px;
+}
+
+.pagin-link {
+    margin-right: 10px;
+    font-size: 20px;
+    border: 2px double;
+    border-radius: 50px;
+    padding: 5px;
+}

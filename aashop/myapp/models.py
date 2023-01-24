@@ -15,11 +15,13 @@ class ItemModelManager(models.Manager):
     def is_published(self):
         return super().get_queryset().filter(is_piblished=True)
 
+
 class CommonInfo(models.Model):
     slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
 
     class Meta:
         abstract = True
+
 
 class Item(CommonInfo):
     name = models.CharField(max_length=255, verbose_name='Название')
