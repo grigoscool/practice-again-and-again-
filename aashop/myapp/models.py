@@ -15,16 +15,19 @@ class ItemModelManager(models.Manager):
     def is_published(self):
         return super().get_queryset().filter(is_piblished=True)
 
+class CommonInfo(models.Model):
+    slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
 
+    class Meta:
+        abstract = True
 
-class Item(models.Model):
+class Item(CommonInfo):
     name = models.CharField(max_length=255, verbose_name='Название')
     text = models.TextField(blank=True)
     price = models.PositiveIntegerField(help_text='Цена товара')
     photo = models.ImageField(upload_to='photo', null=True)
     is_piblished = models.BooleanField(default=True)
     time_creation = models.DateField(auto_now_add=True)
-    slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
     cat = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE)
 
@@ -41,9 +44,8 @@ class Item(models.Model):
         return reverse('myapp:item_detail', kwargs={'slug': self.slug})
 
 
-class Category(models.Model):
+class Category(CommonInfo):
     title = models.CharField(max_length=255, verbose_name='категория')
-    slug = models.SlugField(max_length=50, db_index=True, unique=True, verbose_name='slug')
 
     class Meta:
         verbose_name_plural = 'Categories'
