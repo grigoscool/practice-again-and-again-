@@ -7,6 +7,7 @@
 			  <div class="card-body">
 			    <h5 class="card-title">Товар: {{ item.name }}e</h5>
 			    <h6 class="card-subtitle mb-2 text-muted">Категория: {{ item.cat }}</h6>
+				  <h6>cost: {{ item.price }}	&#8381;</h6>
 				  <div class="link-detail">
 					  <a href="{{ item.get_absolute_url }}" class="card-link-detail" style="text-decoration: none;">show detail</a>
 				  </div>
@@ -17,9 +18,19 @@
 	{% endfor %}
 </div>
 <div class="paginator">
+	{% if page_obj.has_previous %}
+		<a class="pagin-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+	{% endif %}
 	{% for page in page_obj.paginator.page_range %}
-		<a class="pagin-link" href="?page={{ page }}">{{ page }}</a>
+		{% if page_obj.number == page %}
+			<a class="pagin-link-selected" href="?page={{ page }}">{{ page }}</a>
+		{% else %}
+			<a class="pagin-link" href="?page={{ page }}">{{ page }}</a>
+		{% endif %}
 	{% endfor %}
+	{% if page_obj.has_next %}
+		<a class="pagin-link" href="?page={{ page_obj.next_page_number }}">	&raquo;</a>
+	{% endif %}
 </div>
 
 {% endblock content %}

@@ -7,7 +7,7 @@ app_name = 'myapp'
 
 routers = routers.SimpleRouter()
 routers.register(r'item', ItemApiViewSet)
-print(routers.urls)
+
 urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('about/', about, name='about'),

@@ -37,7 +37,7 @@ class Item(CommonInfo):
     # objects_pub = ItemModelManager()
 
     class Meta:
-        ordering = ['cat']
+        ordering = ['name']
 
     def __str__(self):
         return self.name
