@@ -39,8 +39,8 @@
 		  </div>
 		</nav>
 			<div class="category">
-				{% get_cats as categories %}
-				{% for cat in categories %}
+<!--				{% get_cats as categories %}-->
+				{% for cat in cats %}
 					<h3>
 						<a class="cat" href="{{ cat.get_absolute_url }}"  style="text-decoration: none; ">{{ cat.title }}</a>
 					</h3>
