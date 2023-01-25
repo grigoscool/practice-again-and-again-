@@ -3,6 +3,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 
+from .services import calc_discont
+
 
 # валидация кастомная
 # def my_valid_on_7(value):
@@ -35,6 +37,8 @@ class Item(CommonInfo):
 
     # можно брать запрос не с миксина, а с менеджера
     # objects_pub = ItemModelManager()
+    def get_discount(self):
+        return calc_discont(self.price, 0.2)
 
     class Meta:
         ordering = ['name']
