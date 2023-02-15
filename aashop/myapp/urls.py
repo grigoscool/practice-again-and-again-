@@ -17,6 +17,4 @@ urlpatterns = [
     path('category/<int:pk>/', CategoryDetail.as_view(), name='category_detail'),
     path('search/', SearchResult.as_view(), name='search'),
     path('api/v1/', include(routers.urls)),
-    path('api/v1/auth_dj/', include('djoser.urls')),
-    re_path(r'^auth_dj/', include('djoser.urls.authtoken')),
 ]

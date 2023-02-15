@@ -7,6 +7,7 @@ from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+import requests
 
 from .models import *
 from .forms import ItemForm
@@ -29,14 +30,17 @@ class Home(DataMixin, ListView):
         mix_cont = self.get_user_context(title='Home')
         return context | mix_cont
 
-    # создаем запросдля отображения в шаблоне
+    # создаем запрос для отображения в шаблоне
     def get_queryset(self):
         return Item.objects.filter(is_piblished=True).select_related('cat')
 
 
-@cache_page(60 * 1)
+# @cache_page(60 * 1)
 def about(request):
-    return render(request, 'myapp/about.html')
+    response = requests.get('https://jsonplaceholder.typicode.com/users').json()
+    context = {'users': response}
+    print(response)
+    return render(request, 'myapp/about.html', context)
 
 
 class Contacts(DataMixin, TemplateView):
@@ -58,6 +62,7 @@ class AddItem(LoginRequiredMixin, DataMixin, CreateView):
         context = super(AddItem, self).get_context_data()
         mix_cont = self.get_user_context(title='ADD item')
         return context | mix_cont
+
 
 class ItemDetail(DataMixin, DetailView):
     model = Item
@@ -101,5 +106,5 @@ class SearchResult(DataMixin, ListView):
 class ItemApiViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, )
-    authentication_classes = (BasicAuthentication, SessionAuthentication, )
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    authentication_classes = (BasicAuthentication, SessionAuthentication,)
